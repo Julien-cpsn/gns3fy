@@ -4,7 +4,7 @@ import requests
 from functools import wraps
 from urllib.parse import urlparse
 from requests import HTTPError
-from dataclasses import field
+from dataclasses import field, asdict
 from typing import Optional, Any, Dict, List
 from pydantic import validator
 from pydantic.dataclasses import dataclass
@@ -650,7 +650,7 @@ class Link:
 
         data = {
             k: v
-            for k, v in self.__dict__.items()
+            for k, v in asdict(self).items()
             if k not in ("connector", "__initialised__", "__pydantic_initialised__")
             if v is not None
         }
@@ -1003,7 +1003,7 @@ class Node:
 
         cached_data = {
             k: v
-            for k, v in self.__dict__.items()
+            for k, v in asdict(self).items()
             if k
             not in (
                 "project_id",
@@ -1257,7 +1257,7 @@ class Project:
 
         data = {
             k: v
-            for k, v in self.__dict__.items()
+            for k, v in asdict(self).items()
             if k
             not in (
                 "stats",
